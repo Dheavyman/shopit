@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package orders;
+
+service OrderService {
+  rpc PlaceOrder (Order) returns (Order) {}
+}
+
+message Empty {}
+
+message Order {
+  string customerId = 1;
+  string productId = 2;
+  string orderId = 3;
+  int32 quantity = 4;
+  string orderStatus = 5;
+}

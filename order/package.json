@@ -1,0 +1,23 @@
+{
+  "name": "order",
+  "version": "1.0.0",
+  "description": "Order service",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Order"
+  ],
+  "author": "Justin Nebo",
+  "license": "MIT",
+  "dependencies": {
+    "@grpc/proto-loader": "^0.5.5",
+    "amqplib": "^0.6.0",
+    "dotenv": "^8.2.0",
+    "grpc": "^1.24.3",
+    "mongoose": "^5.10.7",
+    "uuid": "^8.3.0"
+  }
+}

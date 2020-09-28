@@ -1,0 +1,52 @@
+version: '3.8'
+services:
+  mongo:
+    image: 'mongo'
+    container_name: 'shopit-db'
+    restart: always
+    env_file: .env
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb:/data/db
+
+  mongo-express:
+    image: mongo-express
+    container_name: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    env_file: .env
+    depends_on:
+      - mongo
+
+  customer:
+    build:
+      context: .
+      dockerfile: ./customer/Dockerfile
+    container_name: customer-service
+    env_file: ./customer/.env
+    ports:
+      - 8050:8050
+    volumes:
+      - ./customer/:/usr/src/app
+      - /usr/src/app/node_modules
+    depends_on:
+      - mongo
+
+  order:
+    build:
+      context: .
+      dockerfile: ./order/Dockerfile
+    container_name: order-service
+    env_file: ./order/.env
+    ports:
+      - 8051:8051
+    volumes:
+      - ./order/:/usr/src/app
+      - /usr/src/app/node_modules
+    depends_on:
+      - mongo
+
+volumes:
+  mongodb:
