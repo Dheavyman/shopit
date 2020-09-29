@@ -1,9 +1,6 @@
-const dotenv = require('dotenv')
 const mongoose = require('mongoose')
 const Customer = require('./models')
 const customers = require('./seeders')
-
-dotenv.config()
 
 const DATABASE_URL = process.env.DATABASE_URL
 
@@ -24,7 +21,6 @@ mongoose.connect(
           }
         })
       });
-
     }
   }
 )

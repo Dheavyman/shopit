@@ -14,6 +14,12 @@ amqp.connect(process.env.AMQP_URL)
   })
   .catch(console.error)
 
+/**
+ * Publish message to queue
+ *
+ * @param {string} queue - Message queue
+ * @param {string} message - Message to send
+ */
 const publishMessage = async (queue, message) => {
   try {
     await ch.assertQueue(queue, {durable: true})

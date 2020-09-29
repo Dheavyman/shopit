@@ -11,6 +11,11 @@ amqp.connect(process.env.AMQP_URL)
   })
   .catch(console.error)
 
+/**
+ * Consume message from queue
+ *
+ * @param {string} queue - Message queue
+ */
 const consumeMessage = async (queue) => {
   try {
     await ch.assertQueue(queue)

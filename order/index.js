@@ -15,8 +15,8 @@ server.addService(orders.OrderService.service, {
 
 const db = mongoose.connection
 
-server.bind('0.0.0.0:8051', grpc.ServerCredentials.createInsecure())
+server.bind('0.0.0.0:8052', grpc.ServerCredentials.createInsecure())
 server.start()
-console.log('Server running on port 8051')
+console.log('Server running on port 8052')
 
 db.on('error', console.error.bind(console, 'Database connection error'))

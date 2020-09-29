@@ -25,7 +25,31 @@ app.get('/api/products', (req, res) => {
   })
 })
 
-app.set('port', 8052)
+app.get('/api/products/:productId', (req, res) => {
+  Product.findOne({productId: req.params.productId}, (error, product) => {
+    if (error) {
+      return res.status(500).send({
+        status: 'error',
+        message: error
+      })
+    }
+
+    if (!product) {
+      return res.status(404).send({
+        status: "error",
+        message: "Product not found"
+      })
+    }
+
+    return res.send({
+      status: 'success',
+      message: 'Product retrieved',
+      data: product
+    })
+  })
+})
+
+app.set('port', 8051)
 app.listen(app.get('port'), (error) => {
   if (error) {
     console.log(error.message)

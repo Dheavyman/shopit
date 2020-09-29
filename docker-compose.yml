@@ -6,7 +6,7 @@ services:
     restart: always
     env_file: .env
     ports:
-      - 27017:27017
+      - "27017:27017"
     volumes:
       - mongodb:/data/db
 
@@ -15,7 +15,7 @@ services:
     container_name: mongo-express
     restart: always
     ports:
-      - 8081:8081
+      - "8081:8081"
     env_file: .env
     depends_on:
       - mongo
@@ -27,9 +27,23 @@ services:
     container_name: customer-service
     env_file: ./customer/.env
     ports:
-      - 8050:8050
+      - "8050:8050"
     volumes:
       - ./customer/:/usr/src/app
+      - /usr/src/app/node_modules
+    depends_on:
+      - mongo
+
+  product:
+    build:
+      context: .
+      dockerfile: ./product/Dockerfile
+    container_name: product-service
+    env_file: ./product/.env
+    ports:
+      - "8051:8051"
+    volumes:
+      - ./product/:/usr/src/app
       - /usr/src/app/node_modules
     depends_on:
       - mongo
@@ -41,7 +55,7 @@ services:
     container_name: order-service
     env_file: ./order/.env
     ports:
-      - 8051:8051
+      - "8052:8052"
     volumes:
       - ./order/:/usr/src/app
       - /usr/src/app/node_modules

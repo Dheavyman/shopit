@@ -1,7 +1,9 @@
+const dotenv = require('dotenv')
 const bodyParser = require('body-parser')
 const logger = require('morgan')
 const express = require('express')
 const axios = require('axios')
+dotenv.config()
 const mongoose = require('./db')
 const orderRoutes = require('./routes')
 
@@ -22,7 +24,7 @@ app.get('/', (req, res) => {
 // Simplified communication
 app.get('/products', async (req, res) => {
   try {
-    const response = await axios.get('http://127.0.0.1:8052/api/products')
+    const response = await axios.get(`${process.env.PRODUCT_SERVICE_URL}/api/products`)
     const { data } = response.data
 
     return res.send({

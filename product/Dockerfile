@@ -2,12 +2,12 @@ FROM node:12
 
 WORKDIR /usr/src/app
 
-COPY package*.json ./
+COPY product/package*.json ./
 
 RUN npm install
 
-COPY . .
+COPY product .
 
-EXPOSE 8052
+EXPOSE 8051
 
 CMD ["npm", "start"]

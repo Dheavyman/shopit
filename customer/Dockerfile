@@ -6,8 +6,8 @@ COPY customer/package*.json ./
 
 RUN npm install
 
-COPY customer/ .
-COPY protos/ ./protos
+COPY customer .
+COPY protos ../protos
 
 EXPOSE 8050
 

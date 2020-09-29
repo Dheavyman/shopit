@@ -6,9 +6,9 @@ COPY order/package*.json ./
 
 RUN npm install
 
-COPY order/ .
-COPY protos/ ./protos
+COPY order .
+COPY protos ../protos
 
-EXPOSE 8051
+EXPOSE 8052
 
 CMD ["npm", "start"]

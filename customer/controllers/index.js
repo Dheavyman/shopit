@@ -1,8 +1,21 @@
+const axios = require('axios')
 const Customer = require('../models')
-const mongoose = require('../db')
 const client = require('../client')
 
+/**
+ * Customer controller
+ *
+ * @class CustomerController
+ */
 class CustomerController {
+  /**
+   * Get customers
+   *
+   * @static
+   * @param {object} req - Request
+   * @param {*} res - Response
+   * @memberof CustomerController
+   */
   static getCustomers(req, res) {
     Customer.find({}, (error, customers) => {
       if (error) {
@@ -19,20 +32,25 @@ class CustomerController {
     })
   }
 
-  static placeOrder(req, res) {
+  /**
+   * Place an order
+   *
+   * @static
+   * @param {object} req - Request
+   * @param {object} res - Response
+   * @memberof CustomerController
+   */
+  static async placeOrder(req, res) {
     const order = {
       customerId: req.body.customerId,
       productId: req.body.productId,
       quantity: req.body.quantity,
     }
 
-    mongoose.mongo.db.collection('products').findOne({productId: order.productId}, (error, product) => {
-      if (!product) {
-        return res.status(404).send({
-          status: "error",
-          message: "Product not found"
-        })
-      }
+    try {
+      const response = await axios.get(
+        `${process.env.PRODUCT_SERVICE_URL}/api/products/${order.productId}`)
+      const { data: product } = response.data
 
       if (product.quantity < order.quantity) {
         return res.status(400).send({
@@ -40,7 +58,19 @@ class CustomerController {
           message: "Order quantity exceeds available product quantity"
         })
       }
-    })
+    } catch (error) {
+      if (error.response.status === 404) {
+        return res.status(404).send({
+          status: "error",
+          message: "Product not found"
+        })
+      }
+
+      return res.status(500).send({
+        status: 'error',
+        message: error
+      })
+    }
 
     client.placeOrder(order, (error, order) => {
       if (error) {
