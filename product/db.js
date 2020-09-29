@@ -9,11 +9,13 @@ const products = [
   {
     productId: uuidV4(),
     name: 'Shopit TV',
+    price: 1000,
     quantity: 5
   },
   {
     productId: uuidV4(),
     name: 'Shopit shoe',
+    price: 200,
     quantity: 10
   }
 ]
@@ -26,6 +28,10 @@ const Product = mongoose.model('Product', new mongoose.Schema({
   },
   name: {
     type: String,
+    required: true
+  },
+  price: {
+    type: Number,
     required: true
   },
   quantity: {

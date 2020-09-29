@@ -23,7 +23,7 @@ amqp.connect(process.env.AMQP_URL)
 const publishMessage = async (queue, message) => {
   try {
     await ch.assertQueue(queue, {durable: true})
-    ch.sendToQueue(queue, Buffer.from(message), {persistent: true})
+    ch.sendToQueue(queue, Buffer.from(JSON.stringify(message)), {persistent: true})
   } catch (error) {
     console.error(error)
   }

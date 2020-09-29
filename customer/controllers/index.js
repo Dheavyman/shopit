@@ -45,6 +45,7 @@ class CustomerController {
       customerId: req.body.customerId,
       productId: req.body.productId,
       quantity: req.body.quantity,
+      amount: req.body.amount
     }
 
     try {

@@ -1,6 +1,8 @@
+const dotenv = require('dotenv')
 const path = require('path')
 const grpc = require('grpc')
 const protoLoader = require('@grpc/proto-loader')
+dotenv.config()
 const mongoose = require('./db')
 const OrderServices = require('./services')
 

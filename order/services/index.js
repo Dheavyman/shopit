@@ -21,6 +21,7 @@ class OrderServices {
       customerId: call.request.customerId,
       productId: call.request.productId,
       orderId: uuidV4(),
+      amount: call.request.amount,
       quantity: call.request.quantity
     }
 
