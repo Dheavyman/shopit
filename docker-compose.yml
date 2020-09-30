@@ -62,5 +62,17 @@ services:
     depends_on:
       - mongo
 
+  payment:
+    build:
+      context: .
+      dockerfile: ./payment/Dockerfile
+    container_name: payment-service
+    env_file: ./payment/.env
+    volumes:
+      - ./payment/:/usr/src/app
+      - /usr/src/app/node_modules
+    depends_on:
+      - mongo
+
 volumes:
   mongodb:
